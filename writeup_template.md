@@ -1,5 +1,5 @@
 # **Traffic Sign Recognition** 
-
+## Kevin Harrilal Project Submission
 ## Writeup Template
 
 ### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
@@ -133,6 +133,17 @@ My final model consisted of the following layers:
 
 An interative and manual process was used to train the model, the final paramerters are:
 
+| Parameter         		|     Value	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Epoc | 60 |
+| Batch Size | 180 |
+|Learning Rate | 0.001 |
+|Drop Out | 0.75 |
+| mu | 0 |
+|Sigma | 0.1 |
+| Images | Grayscaled |
+
+
 The below explains how these parameters were discovered
 
 ![alt text](/writeup_images/08_model_tuning_process.PNG?raw=true)
@@ -140,21 +151,26 @@ The below explains how these parameters were discovered
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* validation set accuracy of 94.4%
+* test set accuracy of 91.5%
+
+![alt text](/writeup_images/07_epoch_list.PNG?raw=true)
+![alt text](/writeup_images/09_test_accuracy.PNG?raw=true)
 
 If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
+* What was the first architecture that was tried and why was it chosen? 
+  The first architecture tried was the LeNet architecture because it was recommended by the lectures, already had a lot of experience with it in the lenet lab, and it was easier to understand, than the paper provided which highligted a modification to LeNet specifically for traffic signs. 
+* What were some problems with the initial architecture? 
+ The initial model only had a 86% accuracy on the validation set. I wouldn't say there was anything with the model itself, but rather with the dataset, the dataset was skewed, and not very large 
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+A dropout layer was added to the initial architecture, I thought it would help improve accuracy, and it did. When dropout was added, and the batch and augmented data adjusted, the accuracy went from 89% to 93%. 
+* Which parameters were tuned? How were they adjusted and why? Batch Size, Drop Out Probability, learning rate, EPOCH, and image pre-processing were all modified as described previously. They were adjusted because each had an effect in the accuracy of the model on the validation set. Sometimes parameters were adjusted, then returned to a nominal value after another paramter was adjusted because accuracy went down. Each parameter was turned making educated guesses about how the final model would be effected, and the resuling model performed particually well.
+* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model? Some of the important design choices are the dual conolutional layers, and the many fully connected layers at the end. Dropout was helpful in preventing overfitting, which was especially useful when the data was augmented with many similar images of items in the dataset already. 
 
 If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+* What architecture was chosen? LeNet
+* Why did you believe it would be relevant to the traffic sign application? It is a CNN which was well understood, and a paper provided in class showed it could perform well on this problem with little modification. It was also a easy starting point since we just finished the LetNEt Lab
+* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?I would say 90% accuracy is pretty significant, and I have read articles of similar networks achieving 97%+. In my model I was only able to achive 94.4% accuracy on the validation set, and 91% on the test set. 
  
 
 ###Test a Model on New Images
@@ -163,42 +179,57 @@ If a well known architecture was chosen:
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text](/writeup_images/10_internet_images.PNG?raw=true)
 
-The first image might be difficult to classify because ...
+The first image might be difficult to classify because an exact match doesn't exit in the dataset. This sign has what appears to be two deers on it, while the "Wild Life" traffic sign in the dataset only has 1. None the less, it was cool to try.
+
+The second and 9th images may also be hard to classify because the 2nd image also does not have a direct match, and the 9th image has a lot more road than sign.
+
+I tried to find the hardest images, not the easiest ones, relizing the model could probbaly perform well on esy images, I was trying to throw some curveballs. 
+
+The data was reshaped to be 32x32x1 and then grayscaled to fit into our model. The results look like this:
+
+![alt text](/writeup_images/11_internet_images_augmented.PNG?raw=true)
+
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+![alt text](/writeup_images/12_internet_images_prediction.PNG?raw=true)
 
-
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 3 of the 10 traffic signs, which gives an accuracy of 30%. This doesn't really match the validation set, however, I would say that at least 3 of the images were extremely hard for the model to characterize. In which case. 3 out of 7 is more like ~42%. Also interesting to note, while one speed limit sign did not get the right answer, it was extrmely close.  In the next section, looking at the softmax output we explain a bit more as to where the model could have gotten hung up. 
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+![alt text](/writeup_images/11_internet_images_augmented.PNG?raw=true)
 
 
-For the second image ... 
+Some observations: 
+
+Image 1: all predictions had a similar triagular shape. The tricky part was the icon in the center. As mentioned this sign did not have an exect replica, but the predictor was 80% certain it was a dangerous curve to the right, and all other predictions had a triangular shape, very impressive
+
+Image 2: 97% correct prediction even though there was no exactly replica. Very impressive
+
+Image 3: Complete failure, did not guess anything near the image. 
+
+Image 4: Did not guess correctly, but all guess were Speed signs which was impressive, it just wasnt the right
+speed
+
+Image 5: 100% guess in correctly. Not sure how the model gets a 100% prediction. Must be something going on under the hood that just isnt right. Although the sign was round. If it is 100%, where do categories 2 and 3 come from?
+
+Image 6: complete failure
+
+Image 7: 100% guess correctly
+
+Image 8: complete failure
+
+Image 9: It was a speed sign, but the top guess does look like the sign, because it was so streched and skewed, this was another hard one to classify
+
+Image 10: 100% corect
+
+Overall, for my first real Deep Network, It is pretty cool to see it guess even 1 image right, without having written any code for it to do so. This is cool stuff. 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
