@@ -52,7 +52,7 @@ signs data set:
 * The shape of a traffic sign image is ?
 * The number of unique classes/labels in the data set is ?
 
-![alt text][image_9]
+![alt text]("writeup_images/14_training_examples.PNG")
 
 ####2. Include an exploratory visualization of the dataset.
 
