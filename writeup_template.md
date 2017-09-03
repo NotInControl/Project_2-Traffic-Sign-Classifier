@@ -27,6 +27,7 @@ The goals / steps of this project are the following:
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image9]: ./writeup_images/14_training_examples.PNG "Data Size"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -51,13 +52,13 @@ signs data set:
 * The shape of a traffic sign image is ?
 * The number of unique classes/labels in the data set is ?
 
-![image][./writeup_images/14_training_examples.PNG]
+![alt text][image_9]
 
 ####2. Include an exploratory visualization of the dataset.
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![alt text][image1]
+![alt text][image_9]
 
 ###Design and Test a Model Architecture
 
